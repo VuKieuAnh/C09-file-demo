@@ -6,9 +6,20 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadWriteBook {
-//   ghi file
-    public static void writeBook(List<Book> books) {
+public class ReadWriteBook implements IReadWriteFile {
+
+    private ReadWriteBook() {
+    }
+    private static ReadWriteBook instance;
+    public static ReadWriteBook getInstance() {
+        if (instance == null) {
+            instance = new ReadWriteBook();
+        }
+        return instance;
+    }
+
+    //   ghi file
+    public void writeBook(List<Book> books) {
         File file = new File("books.txt");
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
@@ -18,7 +29,7 @@ public class ReadWriteBook {
         }
     }
 //    doc file
-    public static List<Book> readBooks() {
+    public List<Book> readBooks() {
         File file = new File("books.txt");
         List<Book> books = new ArrayList<>();
         try {
